@@ -10,10 +10,10 @@ const User = require("../models/user");
 exports.getPosts = async (req, res, next) => {
   const currentPage = req.query.page || 1;
   const perPage = 2;
-  let totalItems;
   try {
     const totalItems = await Post.find().countDocuments();
     const posts = await Post.find()
+      .populate("creator")
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
 
@@ -22,7 +22,7 @@ exports.getPosts = async (req, res, next) => {
       posts: posts,
       totalItems: totalItems,
     });
-  } catch (error) {
+  } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
     }
