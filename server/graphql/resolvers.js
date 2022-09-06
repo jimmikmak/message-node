@@ -6,8 +6,7 @@ module.exports = {
   createUser: async function ({ userInput }, req) {
     // const email = args.userInput.email;
     // const email = userInput.email;
-
-    const existingUser = await User.findOne({ email: userInutor.email });
+    const existingUser = await User.findOne({ email: userInput.email });
     if (existingUser) {
       const error = new Error("User already exists!");
       throw error;
