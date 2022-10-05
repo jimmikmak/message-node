@@ -231,4 +231,11 @@ module.exports = {
     await user.save();
     return true;
   },
+  user: async function (args, req) {
+    if (!req.isAuth) {
+      const error = new Error("Not authenticated!");
+      error.code = 401;
+      throw error;
+    }
+  },
 };
